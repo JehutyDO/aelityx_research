@@ -6,7 +6,7 @@ import {
   Brain, 
   Globe, 
   BookOpen, 
-  Flask
+  FlaskConical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -28,7 +28,7 @@ const ServicesSection = () => {
       description: "Modelos de regresión, clasificación, IA aplicada con PyTorch, Scikit-learn y TensorFlow para soluciones inteligentes."
     },
     {
-      icon: <Flask className="w-10 h-10 text-aelityx-green" />,
+      icon: <FlaskConical className="w-10 h-10 text-aelityx-green" />,
       title: "Simulación y Análisis Cuantitativo",
       description: "Simulación Monte Carlo, escenarios What-if, análisis de sensibilidad y optimización para toma de decisiones."
     },
