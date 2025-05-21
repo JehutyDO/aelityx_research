@@ -3,8 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap');
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -38,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -104,13 +95,13 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-roboto font-bold;
+    @apply font-poppins font-bold;
   }
 }
 
 @layer components {
   .section-padding {
-    @apply py-16 px-6 md:px-12 lg:px-24;
+    @apply py-20 px-6 md:px-12 lg:px-24;
   }
   
   .btn-primary {
@@ -122,15 +113,15 @@
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-6 text-aelityx-dark;
+    @apply text-3xl md:text-4xl font-bold mb-6 text-aelityx-dark dark:text-white;
   }
   
   .section-subtitle {
-    @apply text-xl text-aelityx-gray mb-12 max-w-3xl mx-auto;
+    @apply text-xl text-aelityx-gray dark:text-gray-300 mb-12 max-w-3xl mx-auto;
   }
   
   .service-card {
-    @apply bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
+    @apply bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
   }
   
   .animate-on-scroll {
@@ -140,4 +131,16 @@
   .animate-on-scroll.animated {
     @apply animate-fade-in;
   }
+
+  .glass-card {
+    @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-aelityx-blue to-aelityx-green bg-clip-text text-transparent;
 }

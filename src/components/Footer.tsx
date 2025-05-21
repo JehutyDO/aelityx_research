@@ -39,19 +39,22 @@ const Footer = () => {
             <h4 className="text-xl font-bold mb-6">Servicios</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Análisis de Datos</a>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Ciencia de Datos</a>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Business Intelligence</a>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Business Intelligence</a>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Machine Learning</a>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Machine Learning</a>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Consultoría Tecnológica</a>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Simulación Monte Carlo</a>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Desarrollo de Software</a>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Desarrollo Web</a>
+              </li>
+              <li>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Capacitación Técnica</a>
               </li>
             </ul>
           </div>
@@ -65,8 +68,8 @@ const Footer = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span className="text-gray-300">
-                  Calle Innovación, 123<br />
-                  28001 Madrid, España
+                  Ciudad de México y<br />
+                  Monterrey, México
                 </span>
               </li>
               <li className="flex items-center">
@@ -79,7 +82,7 @@ const Footer = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-aelityx-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <a href="tel:+34911234567" className="text-gray-300 hover:text-white transition-colors">+34 911 234 567</a>
+                <a href="tel:+34911234567" className="text-gray-300 hover:text-white transition-colors">+52 55 1234 5678</a>
               </li>
             </ul>
           </div>

@@ -8,23 +8,35 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="absolute right-0 top-1/4 w-1/2 h-1/2 bg-aelityx-blue/5 rounded-full blur-3xl"></div>
         <div className="absolute left-1/4 bottom-1/4 w-1/3 h-1/3 bg-aelityx-green/5 rounded-full blur-3xl"></div>
+        
+        {/* Network visualization background effect */}
+        <div className="absolute inset-0 opacity-10">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="network" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                <circle cx="20" cy="20" r="1" fill="#1E88E5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#network)" />
+          </svg>
+        </div>
       </div>
       <div className="container mx-auto px-6 pt-24 pb-16 z-10 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
-            <h1 className="text-5xl md:text-6xl font-black mb-6 text-aelityx-dark font-roboto">
-              Conexión con los <span className="text-aelityx-blue">Datos</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-aelityx-dark font-roboto leading-tight">
+              Conectamos con los <span className="text-aelityx-blue">datos</span>. Transformamos <span className="text-aelityx-green">conocimiento</span>. Impulsamos el <span className="text-aelityx-blue">futuro</span>.
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-aelityx-gray max-w-lg">
-              Innovación y confianza a través de tecnología de vanguardia para tu evolución empresarial.
+              Soluciones científicas, digitales y humanas para una evolución inteligente.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button className="bg-aelityx-blue hover:bg-aelityx-blue/90 text-white px-8 py-6 rounded-md text-lg flex items-center gap-2 group">
-                Descubre Más
+                Solicita propuesta
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button variant="outline" className="border-aelityx-blue text-aelityx-blue hover:bg-aelityx-blue hover:text-white px-8 py-6 rounded-md text-lg">
-                Contáctanos
+                Descubre cómo
               </Button>
             </div>
           </div>

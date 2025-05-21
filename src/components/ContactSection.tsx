@@ -4,18 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 
 const ContactSection = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    company: "",
+    serviceType: "",
     message: ""
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -35,69 +35,61 @@ const ContactSection = () => {
     setFormData({
       name: "",
       email: "",
-      phone: "",
-      company: "",
+      serviceType: "",
       message: ""
     });
   };
 
   return (
-    <section id="contacto" className="section-padding bg-white">
+    <section id="contacto" className="section-padding bg-white dark:bg-gray-900">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="section-title">Contacto</h2>
           <p className="section-subtitle">
-            ¿Listo para transformar tus datos en conocimiento? Ponte en contacto con nosotros y descubre cómo podemos ayudarte.
+            ¿Listo para transformar tus datos en sabiduría accionable? Ponte en contacto con nosotros y descubre cómo podemos ayudarte.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-aelityx-dark">Información de Contacto</h3>
+            <h3 className="text-2xl font-bold mb-6 text-aelityx-dark dark:text-white">Información de Contacto</h3>
             <div className="space-y-6">
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-blue/10 flex items-center justify-center mr-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-aelityx-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
+                  <Mail className="h-6 w-6 text-aelityx-blue" />
                 </div>
                 <div>
-                  <p className="font-medium text-aelityx-dark">Email</p>
+                  <p className="font-medium text-aelityx-dark dark:text-white">Email</p>
                   <a href="mailto:info@aelityx.com" className="text-aelityx-gray hover:text-aelityx-blue transition-colors">info@aelityx.com</a>
                 </div>
               </div>
               
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-green/10 flex items-center justify-center mr-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-aelityx-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
+                  <Phone className="h-6 w-6 text-aelityx-green" />
                 </div>
                 <div>
-                  <p className="font-medium text-aelityx-dark">Teléfono</p>
+                  <p className="font-medium text-aelityx-dark dark:text-white">Teléfono</p>
                   <a href="tel:+34911234567" className="text-aelityx-gray hover:text-aelityx-green transition-colors">+34 911 234 567</a>
                 </div>
               </div>
               
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-blue/10 flex items-center justify-center mr-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-aelityx-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
+                  <MapPin className="h-6 w-6 text-aelityx-blue" />
                 </div>
                 <div>
-                  <p className="font-medium text-aelityx-dark">Dirección</p>
-                  <address className="text-aelityx-gray not-italic">
-                    Calle Innovación, 123<br />
-                    28001 Madrid, España
+                  <p className="font-medium text-aelityx-dark dark:text-white">Dirección</p>
+                  <address className="text-aelityx-gray not-italic dark:text-gray-300">
+                    Ciudad de México y<br />
+                    Monterrey, México
                   </address>
                 </div>
               </div>
             </div>
 
             <div className="mt-10">
-              <h3 className="text-xl font-bold mb-4 text-aelityx-dark">Síguenos</h3>
+              <h3 className="text-xl font-bold mb-4 text-aelityx-dark dark:text-white">Síguenos</h3>
               <div className="flex space-x-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-aelityx-blue/10 flex items-center justify-center hover:bg-aelityx-blue hover:text-white transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -123,69 +115,64 @@ const ContactSection = () => {
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-lg shadow-md">
-            <h3 className="text-2xl font-bold mb-6 text-aelityx-dark">Envíanos un mensaje</h3>
-            <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-aelityx-dark mb-2">
-                    Nombre completo *
-                  </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Tu nombre"
-                    required
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-aelityx-dark mb-2">
-                    Correo electrónico *
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="tu@email.com"
-                    required
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-aelityx-dark mb-2">
-                    Teléfono
-                  </label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Tu teléfono"
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-aelityx-dark mb-2">
-                    Empresa
-                  </label>
-                  <Input
-                    id="company"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    placeholder="Tu empresa"
-                    className="w-full"
-                  />
-                </div>
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+            <h3 className="text-2xl font-bold mb-6 text-aelityx-dark dark:text-white">Envíanos un mensaje</h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
+                  Nombre completo *
+                </label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Tu nombre"
+                  required
+                  className="w-full"
+                />
               </div>
               
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-medium text-aelityx-dark mb-2">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
+                  Correo electrónico *
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="tu@email.com"
+                  required
+                  className="w-full"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="serviceType" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
+                  ¿Qué necesitas? *
+                </label>
+                <select
+                  id="serviceType"
+                  name="serviceType"
+                  value={formData.serviceType}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option value="consultoria">Consultoría</option>
+                  <option value="curso">Curso</option>
+                  <option value="dashboard">Dashboard</option>
+                  <option value="ai">Soluciones de IA</option>
+                  <option value="desarrollo">Desarrollo Web</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+              
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
                   Mensaje *
                 </label>
                 <Textarea
@@ -200,11 +187,22 @@ const ContactSection = () => {
                 />
               </div>
               
-              <Button type="submit" className="w-full bg-aelityx-blue hover:bg-aelityx-blue/90">
-                Enviar Mensaje
+              <Button type="submit" className="w-full bg-aelityx-blue hover:bg-aelityx-blue/90 flex items-center justify-center gap-2 group">
+                Enviar propuesta
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </form>
           </div>
+        </div>
+
+        <div className="mt-20 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-aelityx-dark dark:text-white">
+            ¿Listo para transformar tus datos en sabiduría accionable?
+          </h2>
+          <Button className="bg-aelityx-green hover:bg-aelityx-green/90 text-white px-8 py-6 rounded-md text-lg flex items-center gap-2 mx-auto group">
+            Conectemos
+            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+          </Button>
         </div>
       </div>
     </section>
