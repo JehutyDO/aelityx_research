@@ -1,5 +1,5 @@
 
-import { Database, Chart } from "lucide-react";
+import { Database, BarChart } from "lucide-react";
 
 const ProposalSection = () => {
   return (
@@ -29,7 +29,7 @@ const ProposalSection = () => {
           <div className="rounded-lg overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300">
             <div className="p-8">
               <div className="w-16 h-16 rounded-full bg-aelityx-green/10 flex items-center justify-center mb-6 group-hover:bg-aelityx-green/20 transition-colors duration-300">
-                <Chart className="w-8 h-8 text-aelityx-green" />
+                <BarChart className="w-8 h-8 text-aelityx-green" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-aelityx-dark">Evolución Tecnológica Continua</h3>
               <p className="text-aelityx-gray">
