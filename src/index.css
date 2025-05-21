@@ -95,7 +95,11 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-poppins font-bold;
+    @apply font-dm font-bold;
+  }
+
+  html {
+    @apply scroll-smooth;
   }
 }
 
@@ -109,7 +113,7 @@
   }
   
   .btn-outline {
-    @apply border-2 border-aelityx-blue text-aelityx-blue px-6 py-[10px] rounded-md hover:bg-aelityx-blue hover:text-white transition-all duration-300 font-medium;
+    @apply border-2 border-aelityx-blue text-aelityx-blue dark:border-aelityx-blue/80 dark:text-aelityx-blue/80 px-6 py-[10px] rounded-md hover:bg-aelityx-blue hover:text-white dark:hover:bg-aelityx-blue/80 dark:hover:text-white transition-all duration-300 font-medium;
   }
   
   .section-title {
@@ -143,4 +147,31 @@
 
 .text-gradient {
   @apply bg-gradient-to-r from-aelityx-blue to-aelityx-green bg-clip-text text-transparent;
+}
+
+/* Dark Mode Transition */
+.dark-mode-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(247, 250, 252, 0.5);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(26, 32, 44, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 136, 229, 0.5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(30, 136, 229, 0.8);
 }

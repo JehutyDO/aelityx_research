@@ -68,11 +68,12 @@ export default {
 					green: "#4CAF50",
 					dark: "#333333",
 					light: "#f5f5f5",
-					gray: "#8E9196"
+					gray: "#8E9196",
+                    yellow: "#FFD600"
 				}
 			},
 			fontFamily: {
-				sans: ['Poppins', 'Inter', 'DM Sans', 'Open Sans', 'sans-serif'],
+				sans: ['DM Sans', 'Inter', 'Open Sans', 'sans-serif'],
 				roboto: ['Roboto', 'sans-serif'],
 				poppins: ['Poppins', 'sans-serif'],
 				inter: ['Inter', 'sans-serif'],
@@ -119,14 +120,24 @@ export default {
 					'50%': {
 						transform: 'translateY(-10px)'
 					}
-				}
+				},
+                'spin-slow': {
+                    '0%': { transform: 'rotate(0deg)' },
+                    '100%': { transform: 'rotate(360deg)' }
+                },
+                'ripple': {
+                    '0%': { transform: 'scale(0.8)', opacity: '1' },
+                    '100%': { transform: 'scale(2)', opacity: '0' }
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out forwards',
 				'fade-in-right': 'fade-in-right 0.5s ease-out forwards',
-				'float': 'float 3s ease-in-out infinite'
+				'float': 'float 3s ease-in-out infinite',
+                'spin-slow': 'spin-slow 8s linear infinite',
+                'ripple': 'ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite'
 			}
 		}
 	},
