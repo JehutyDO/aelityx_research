@@ -27,7 +27,7 @@ const Footer = () => {
                 <a href="#casos" className="text-gray-300 hover:text-white transition-colors">Casos de Éxito</a>
               </li>
               <li>
-                <a href="#equipo" className="text-gray-300 hover:text-white transition-colors">Equipo</a>
+                <a href="#vision" className="text-gray-300 hover:text-white transition-colors">Visión</a>
               </li>
               <li>
                 <a href="#contacto" className="text-gray-300 hover:text-white transition-colors">Contacto</a>
@@ -48,13 +48,19 @@ const Footer = () => {
                 <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Machine Learning</a>
               </li>
               <li>
-                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Simulación Monte Carlo</a>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Análisis Geoquímico</a>
               </li>
               <li>
                 <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Desarrollo Web</a>
               </li>
               <li>
-                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Capacitación Técnica</a>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Consultorías</a>
+              </li>
+              <li>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Educación</a>
+              </li>
+              <li>
+                <a href="#servicios" className="text-gray-300 hover:text-white transition-colors">Integración de Sistemas</a>
               </li>
             </ul>
           </div>
@@ -68,8 +74,7 @@ const Footer = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span className="text-gray-300">
-                  Ciudad de México y<br />
-                  Monterrey, México
+                  Aguascalientes, México
                 </span>
               </li>
               <li className="flex items-center">
@@ -82,7 +87,7 @@ const Footer = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-aelityx-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <a href="tel:+34911234567" className="text-gray-300 hover:text-white transition-colors">+52 55 1234 5678</a>
+                <a href="tel:+52 33 5018 4329" className="text-gray-300 hover:text-white transition-colors">+52 33 5018 4329</a>
               </li>
             </ul>
           </div>
@@ -92,13 +97,13 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Aelityx. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()-1} Aelityx. Todos los derechos reservados.
           </p>
-          <div className="flex space-x-6">
+          {/*<div className="flex space-x-6">
             <a href="#" className="text-gray-400 hover:text-white transition-colors">Política de Privacidad</a>
             <a href="#" className="text-gray-400 hover:text-white transition-colors">Términos de Uso</a>
             <a href="#" className="text-gray-400 hover:text-white transition-colors">Cookies</a>
-          </div>
+          </div>*/}
         </div>
       </div>
     </footer>

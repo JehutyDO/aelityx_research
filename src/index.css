@@ -1,3 +1,25 @@
+@font-face {
+  font-family: 'Causten';
+  src: url('/fonts/Causten-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Causten';
+  src: url('/fonts/Causten-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Causten';
+  src: url('/fonts/Causten-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
 
 @tailwind base;
 @tailwind components;
@@ -90,16 +112,17 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-causten;
     scroll-behavior: smooth;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-dm font-bold;
+    @apply font-dm font-causten;
   }
 
   html {
     @apply scroll-smooth;
+    font-size: 20px;
   }
 }
 
@@ -117,7 +140,7 @@
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-6 text-aelityx-dark dark:text-white;
+    @apply text-3xl md:text-4xl font-causten mb-6 text-aelityx-dark dark:text-white;
   }
   
   .section-subtitle {
@@ -175,3 +198,36 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(30, 136, 229, 0.8);
 }
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: scale(0);
+  animation: ripple-animation 1.8s ease-out;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  background-color: transparent;
+  backdrop-filter: blur(3px);
+  mix-blend-mode: screen;
+  z-index: 10;
+}
+
+@keyframes ripple-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  30% {
+    transform: scale(2);
+    opacity: 0.4;
+  }
+  60% {
+    transform: scale(4);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(6.5);
+    opacity: 0;
+  }
+}
+

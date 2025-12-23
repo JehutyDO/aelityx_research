@@ -1,208 +1,381 @@
-
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
+import { ArrowRight, Mail, Phone, MapPin, Send, Shield, Clock } from "lucide-react";
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
+    company: "",
     serviceType: "",
-    message: ""
+    message: "",
+    honeypot: "" // Campo honeypot para protección anti-spam
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      toast({
+        title: "Error de validación",
+        description: "El nombre es requerido",
+        variant: "destructive"
+      });
+      return false;
+    }
+    
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) {
+      toast({
+        title: "Error de validación", 
+        description: "Por favor ingresa un email válido",
+        variant: "destructive"
+      });
+      return false;
+    }
+    
+    if (!formData.serviceType) {
+      toast({
+        title: "Error de validación",
+        description: "Por favor selecciona un tipo de servicio",
+        variant: "destructive"
+      });
+      return false;
+    }
+    
+    if (!formData.message.trim()) {
+      toast({
+        title: "Error de validación",
+        description: "El mensaje es requerido",
+        variant: "destructive"
+      });
+      return false;
+    }
+    
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
     
-    // Show success toast
-    toast({
-      title: "Mensaje enviado",
-      description: "Nos pondremos en contacto contigo pronto. ¡Gracias!",
-      duration: 5000
-    });
+    // Protección anti-spam - si el campo honeypot está lleno, es spam
+    if (formData.honeypot) {
+      console.log("Spam detectado");
+      return;
+    }
     
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      serviceType: "",
-      message: ""
-    });
+    if (!validateForm()) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Preparar datos para EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone || "No proporcionado",
+        company: formData.company || "No proporcionado", 
+        service_type: formData.serviceType,
+        message: formData.message,
+        to_email: "info@aelityx.com"
+      };
+      
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      
+      toast({
+        title: "¡Mensaje enviado exitosamente!",
+        description: "Gracias por contactarnos. Te responderemos pronto a tu email.",
+        duration: 6000
+      });
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        serviceType: "",
+        message: "",
+        honeypot: ""
+      });
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Error al enviar mensaje",
+        description: "Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo o contáctanos directamente.",
+        variant: "destructive",
+        duration: 6000
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <section id="contacto" className="section-padding bg-white dark:bg-gray-900">
+    <section id="contacto" className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="section-title">Contacto</h2>
-          <p className="section-subtitle">
-            ¿Listo para transformar tus datos en sabiduría accionable? Ponte en contacto con nosotros y descubre cómo podemos ayudarte.
+          <p className="section-subtitle max-w-3xl mx-auto">
+            ¿Listo para transformar tus datos en sabiduría accionable? Ponte en contacto con nosotros y descubre cómo podemos ayudarte a alcanzar tus objetivos.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-aelityx-dark dark:text-white">Información de Contacto</h3>
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-blue/10 flex items-center justify-center mr-4">
-                  <Mail className="h-6 w-6 text-aelityx-blue" />
-                </div>
-                <div>
-                  <p className="font-medium text-aelityx-dark dark:text-white">Email</p>
-                  <a href="mailto:info@aelityx.com" className="text-aelityx-gray hover:text-aelityx-blue transition-colors">info@aelityx.com</a>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          {/* Información de Contacto */}
+          <div className="lg:col-span-1">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 h-full">
+              <h3 className="text-2xl font-bold mb-8 text-aelityx-dark dark:text-white flex items-center gap-2">
+                <Mail className="h-6 w-6 text-aelityx-blue" />
+                Información de Contacto
+              </h3>
               
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-green/10 flex items-center justify-center mr-4">
-                  <Phone className="h-6 w-6 text-aelityx-green" />
+              <div className="space-y-8">
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-blue/10 flex items-center justify-center mr-4 group-hover:bg-aelityx-blue/20 transition-colors">
+                    <Mail className="h-6 w-6 text-aelityx-blue" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-aelityx-dark dark:text-white mb-1">Email</p>
+                    <a 
+                      href="mailto:info@aelityx.com" 
+                      className="text-aelityx-gray hover:text-aelityx-blue transition-colors text-lg"
+                    >
+                      info@aelityx.com
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium text-aelityx-dark dark:text-white">Teléfono</p>
-                  <a href="tel:+34911234567" className="text-aelityx-gray hover:text-aelityx-green transition-colors">+34 911 234 567</a>
+                
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-green/10 flex items-center justify-center mr-4 group-hover:bg-aelityx-green/20 transition-colors">
+                    <Phone className="h-6 w-6 text-aelityx-green" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-aelityx-dark dark:text-white mb-1">Teléfono</p>
+                    <a 
+                      href="tel:+52 33 5018 4329" 
+                      className="text-aelityx-gray hover:text-aelityx-green transition-colors text-lg"
+                    >
+                      +52 33 5018 4329
+                    </a>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-blue/10 flex items-center justify-center mr-4">
-                  <MapPin className="h-6 w-6 text-aelityx-blue" />
+                
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-orange/10 flex items-center justify-center mr-4 group-hover:bg-aelityx-orange/20 transition-colors">
+                    <MapPin className="h-6 w-6 text-aelityx-orange" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-aelityx-dark dark:text-white mb-2">Oficina Principal</p>
+                    <address className="text-aelityx-gray not-italic dark:text-gray-300 leading-relaxed">
+                      <span className="font-medium">Lic. Francisco Primo Verdad 128</span><br />
+                      <span className="text-sm">Piso 2, Int. 4</span><br />
+                      <span className="text-sm">Zona Centro</span><br />
+                      <span className="font-medium">20000 Aguascalientes, Ags.</span>
+                    </address>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium text-aelityx-dark dark:text-white">Dirección</p>
-                  <address className="text-aelityx-gray not-italic dark:text-gray-300">
-                    Ciudad de México y<br />
-                    Monterrey, México
-                  </address>
+                
+                {/* Elementos de confianza */}
+                <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center gap-4 text-sm text-aelityx-gray">
+                    <div className="flex items-center gap-1">
+                      <Shield className="h-4 w-4 text-aelityx-green" />
+                      <span>Seguro SSL</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-4 w-4 text-aelityx-blue" />
+                      <span>Respuesta &lt; 24h</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="text-xl font-bold mb-4 text-aelityx-dark dark:text-white">Síguenos</h3>
-              <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-aelityx-blue/10 flex items-center justify-center hover:bg-aelityx-blue hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                  </svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-aelityx-blue/10 flex items-center justify-center hover:bg-aelityx-blue hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-                  </svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-aelityx-blue/10 flex items-center justify-center hover:bg-aelityx-blue hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                  </svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-aelityx-blue/10 flex items-center justify-center hover:bg-aelityx-blue hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
-                  </svg>
-                </a>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-            <h3 className="text-2xl font-bold mb-6 text-aelityx-dark dark:text-white">Envíanos un mensaje</h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
-                  Nombre completo *
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Tu nombre"
-                  required
-                  className="w-full"
-                />
-              </div>
+          {/* Formulario de Contacto */}
+          <div className="lg:col-span-2">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
+              <h3 className="text-2xl font-bold mb-2 text-aelityx-dark dark:text-white flex items-center gap-2">
+                <Send className="h-6 w-6 text-aelityx-blue" />
+                Envíanos un mensaje
+              </h3>
+              <p className="text-aelityx-gray dark:text-gray-300 mb-8">
+                Cuéntanos sobre tu proyecto y nos pondremos en contacto contigo pronto
+              </p>
               
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
-                  Correo electrónico *
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                {/* Campo honeypot oculto para anti-spam */}
+                <input
+                  type="text"
+                  name="honeypot"
+                  value={formData.honeypot}
                   onChange={handleChange}
-                  placeholder="tu@email.com"
-                  required
-                  className="w-full"
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
                 />
-              </div>
-              
-              <div>
-                <label htmlFor="serviceType" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
-                  ¿Qué necesitas? *
-                </label>
-                <select
-                  id="serviceType"
-                  name="serviceType"
-                  value={formData.serviceType}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-semibold text-aelityx-dark dark:text-gray-200 mb-2">
+                      Nombre completo *
+                    </label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Tu nombre completo"
+                      required
+                      className="h-12 text-base focus:ring-aelityx-blue focus:border-aelityx-blue"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-semibold text-aelityx-dark dark:text-gray-200 mb-2">
+                      Correo electrónico *
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="tu@email.com"
+                      required
+                      className="h-12 text-base focus:ring-aelityx-blue focus:border-aelityx-blue"
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-aelityx-dark dark:text-gray-200 mb-2">
+                      Teléfono
+                    </label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="xxx xxx xxxx"
+                      className="h-12 text-base focus:ring-aelityx-blue focus:border-aelityx-blue"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="company" className="block text-sm font-semibold text-aelityx-dark dark:text-gray-200 mb-2">
+                      Empresa/Organización
+                    </label>
+                    <Input
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Tu empresa"
+                      className="h-12 text-base focus:ring-aelityx-blue focus:border-aelityx-blue"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="serviceType" className="block text-sm font-semibold text-aelityx-dark dark:text-gray-200 mb-2">
+                    ¿Qué servicio necesitas? *
+                  </label>
+                  <select
+                    id="serviceType"
+                    name="serviceType"
+                    value={formData.serviceType}
+                    onChange={handleChange}
+                    required
+                    className="w-full h-12 rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aelityx-blue focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <option value="" disabled>Selecciona una opción</option>
+                    <option value="ciencia-datos">Ciencia de Datos y Modelado Predictivo</option>
+                    <option value="consultoria">Consultoría en Data Science</option>
+                    <option value="dashboard">Dashboards y Visualización</option>
+                    <option value="ai">Soluciones de IA y Machine Learning</option>
+                    <option value="curso">Cursos y Capacitación</option>
+                    <option value="desarrollo">Desarrollo Web y Apps</option>
+                    <option value="otro">Otro (especificar en mensaje)</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm font-semibold text-aelityx-dark dark:text-gray-200 mb-2">
+                    Mensaje *
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Cuéntanos sobre tu proyecto, objetivos y cómo podemos ayudarte..."
+                    required
+                    rows={5}
+                    className="text-base focus:ring-aelityx-blue focus:border-aelityx-blue resize-none"
+                  />
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full h-14 bg-gradient-to-r from-aelityx-blue to-aelityx-green hover:from-aelityx-blue/90 hover:to-aelityx-green/90 text-white font-semibold text-lg flex items-center justify-center gap-3 group transition-all duration-300 disabled:opacity-50"
                 >
-                  <option value="" disabled>Selecciona una opción</option>
-                  <option value="consultoria">Consultoría</option>
-                  <option value="curso">Curso</option>
-                  <option value="dashboard">Dashboard</option>
-                  <option value="ai">Soluciones de IA</option>
-                  <option value="desarrollo">Desarrollo Web</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-aelityx-dark dark:text-gray-200 mb-2">
-                  Mensaje *
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="¿En qué podemos ayudarte?"
-                  required
-                  rows={5}
-                  className="w-full"
-                />
-              </div>
-              
-              <Button type="submit" className="w-full bg-aelityx-blue hover:bg-aelityx-blue/90 flex items-center justify-center gap-2 group">
-                Enviar propuesta
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </form>
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      Enviar mensaje
+                      <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
 
+        {/* Call to Action Section */}
         <div className="mt-20 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-aelityx-dark dark:text-white">
-            ¿Listo para transformar tus datos en sabiduría accionable?
-          </h2>
-          <Button className="bg-aelityx-green hover:bg-aelityx-green/90 text-white px-8 py-6 rounded-md text-lg flex items-center gap-2 mx-auto group">
-            Conectemos
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <div className="bg-gradient-to-r from-aelityx-blue to-aelityx-green rounded-3xl p-12 text-white">
+            <h3 className="text-3xl md:text-4xl font-bold mb-6">
+              ¿Listo para transformar tus datos en sabiduría accionable?
+            </h3>
+            <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+              Únete a empresas líderes que ya están aprovechando el poder de sus datos con nuestras soluciones.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg"
+                className="bg-white text-aelityx-blue hover:bg-gray-100 font-semibold px-8 py-4 text-lg"
+                onClick={() => document.getElementById('serviceType')?.focus()}
+              >
+                Comenzar proyecto
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

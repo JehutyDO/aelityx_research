@@ -69,7 +69,7 @@ export default {
 					dark: "#333333",
 					light: "#f5f5f5",
 					gray: "#8E9196",
-                    yellow: "#FFD600"
+                    orange: "#ff9700"
 				}
 			},
 			fontFamily: {
@@ -77,7 +77,8 @@ export default {
 				roboto: ['Roboto', 'sans-serif'],
 				poppins: ['Poppins', 'sans-serif'],
 				inter: ['Inter', 'sans-serif'],
-				dm: ['DM Sans', 'sans-serif']
+				dm: ['DM Sans', 'sans-serif'],
+				causten: ['Causten', 'sans-serif'] // ✅ NUEVO
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

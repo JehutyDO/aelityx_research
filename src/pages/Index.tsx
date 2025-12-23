@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import { useEffect } from "react";
+import CEOSection from "@/components/CEOSection.tsx";
 
 const Index = () => {
   useEffect(() => {
@@ -35,7 +36,7 @@ const Index = () => {
       </AnimateOnScroll>
       
       <AnimateOnScroll>
-        <TeamSection />
+        <CEOSection />
       </AnimateOnScroll>
       
       <AnimateOnScroll>
