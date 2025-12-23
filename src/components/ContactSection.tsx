@@ -19,6 +19,7 @@ const ContactSection = () => {
     honeypot: "" // Campo honeypot para protección anti-spam
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -97,10 +98,13 @@ const ContactSection = () => {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
       
+      // Mostrar estado de éxito
+      setIsSubmitted(true);
+      
       toast({
         title: "¡Mensaje enviado exitosamente!",
-        description: "Gracias por contactarnos. Te responderemos pronto a tu email.",
-        duration: 6000
+        description: "Te responderemos pronto a tu email.",
+        duration: 3000
       });
       
       // Reset form
@@ -131,76 +135,78 @@ const ContactSection = () => {
     <section id="contacto" className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="section-title">Contacto</h2>
+          <h2 className="section-title">Colaborar</h2>
           <p className="section-subtitle max-w-3xl mx-auto">
-            ¿Listo para transformar tus datos en sabiduría accionable? Ponte en contacto con nosotros y descubre cómo podemos ayudarte a alcanzar tus objetivos.
+            ¿Interesado en colaboración académica, proyectos de investigación o servicios de Aelityx? 
+            Ponte en contacto para explorar oportunidades de trabajo conjunto.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {/* Información de Contacto */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 h-full">
-              <h3 className="text-2xl font-bold mb-8 text-aelityx-dark dark:text-white flex items-center gap-2">
-                <Mail className="h-6 w-6 text-aelityx-blue" />
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 h-full">
+              <h3 className="text-xl font-bold mb-6 text-aelityx-dark dark:text-white">
                 Información de Contacto
               </h3>
               
-              <div className="space-y-8">
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-blue/10 flex items-center justify-center mr-4 group-hover:bg-aelityx-blue/20 transition-colors">
-                    <Mail className="h-6 w-6 text-aelityx-blue" />
+              <div className="space-y-5">
+                {/* Email */}
+                <div className="p-4 rounded-lg bg-aelityx-blue/5 dark:bg-aelityx-blue/10 border border-aelityx-blue/10 hover:border-aelityx-blue/30 transition-all">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-aelityx-blue/20 flex items-center justify-center">
+                      <Mail className="h-4 w-4 text-aelityx-blue" />
+                    </div>
+                    <p className="font-semibold text-sm text-aelityx-dark dark:text-white">Email</p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-aelityx-dark dark:text-white mb-1">Email</p>
-                    <a 
-                      href="mailto:info@aelityx.com" 
-                      className="text-aelityx-gray hover:text-aelityx-blue transition-colors text-lg"
-                    >
-                      info@aelityx.com
-                    </a>
-                  </div>
+                  <a 
+                    href="mailto:mrosales@aelityx.com" 
+                    className="text-sm text-aelityx-gray hover:text-aelityx-blue dark:text-gray-300 dark:hover:text-aelityx-blue/90 transition-colors break-all block"
+                  >
+                    mrosales@aelityx.com
+                  </a>
                 </div>
                 
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-green/10 flex items-center justify-center mr-4 group-hover:bg-aelityx-green/20 transition-colors">
-                    <Phone className="h-6 w-6 text-aelityx-green" />
+                {/* Teléfono */}
+                <div className="p-4 rounded-lg bg-aelityx-green/5 dark:bg-aelityx-green/10 border border-aelityx-green/10 hover:border-aelityx-green/30 transition-all">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-aelityx-green/20 flex items-center justify-center">
+                      <Phone className="h-4 w-4 text-aelityx-green" />
+                    </div>
+                    <p className="font-semibold text-sm text-aelityx-dark dark:text-white">Teléfono</p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-aelityx-dark dark:text-white mb-1">Teléfono</p>
-                    <a 
-                      href="tel:+52 33 5018 4329" 
-                      className="text-aelityx-gray hover:text-aelityx-green transition-colors text-lg"
-                    >
-                      +52 33 5018 4329
-                    </a>
-                  </div>
+                  <a 
+                    href="tel:+523350184329" 
+                    className="text-sm text-aelityx-gray hover:text-aelityx-green dark:text-gray-300 dark:hover:text-aelityx-green/90 transition-colors block"
+                  >
+                    +52 33 5018 4329
+                  </a>
                 </div>
                 
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-aelityx-orange/10 flex items-center justify-center mr-4 group-hover:bg-aelityx-orange/20 transition-colors">
-                    <MapPin className="h-6 w-6 text-aelityx-orange" />
+                {/* Dirección */}
+                <div className="p-4 rounded-lg bg-aelityx-orange/5 dark:bg-aelityx-orange/10 border border-aelityx-orange/10 hover:border-aelityx-orange/30 transition-all">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-aelityx-orange/20 flex items-center justify-center">
+                      <MapPin className="h-4 w-4 text-aelityx-orange" />
+                    </div>
+                    <p className="font-semibold text-sm text-aelityx-dark dark:text-white">Oficina</p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-aelityx-dark dark:text-white mb-2">Oficina Principal</p>
-                    <address className="text-aelityx-gray not-italic dark:text-gray-300 leading-relaxed">
-                      <span className="font-medium">Lic. Francisco Primo Verdad 128</span><br />
-                      <span className="text-sm">Piso 2, Int. 4</span><br />
-                      <span className="text-sm">Zona Centro</span><br />
-                      <span className="font-medium">20000 Aguascalientes, Ags.</span>
-                    </address>
-                  </div>
+                  <address className="text-xs text-aelityx-gray dark:text-gray-300 not-italic leading-relaxed">
+                    Lic. Francisco Primo Verdad 128<br />
+                    Piso 2, Int. 4, Zona Centro<br />
+                    20000 Aguascalientes, Ags.
+                  </address>
                 </div>
                 
                 {/* Elementos de confianza */}
-                <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-4 text-sm text-aelityx-gray">
-                    <div className="flex items-center gap-1">
-                      <Shield className="h-4 w-4 text-aelityx-green" />
+                <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex flex-wrap gap-3 text-xs text-aelityx-gray dark:text-gray-400">
+                    <div className="flex items-center gap-1.5">
+                      <Shield className="h-3.5 w-3.5 text-aelityx-green" />
                       <span>Seguro SSL</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4 text-aelityx-blue" />
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="h-3.5 w-3.5 text-aelityx-blue" />
                       <span>Respuesta &lt; 24h</span>
                     </div>
                   </div>
@@ -212,15 +218,18 @@ const ContactSection = () => {
           {/* Formulario de Contacto */}
           <div className="lg:col-span-2">
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
-              <h3 className="text-2xl font-bold mb-2 text-aelityx-dark dark:text-white flex items-center gap-2">
-                <Send className="h-6 w-6 text-aelityx-blue" />
-                Envíanos un mensaje
-              </h3>
-              <p className="text-aelityx-gray dark:text-gray-300 mb-8">
-                Cuéntanos sobre tu proyecto y nos pondremos en contacto contigo pronto
-              </p>
-              
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+              {!isSubmitted ? (
+                <>
+                  <h3 className="text-2xl font-bold mb-2 text-aelityx-dark dark:text-white flex items-center gap-2">
+                    <Send className="h-6 w-6 text-aelityx-blue" />
+                    Envíanos un mensaje
+                  </h3>
+                  <p className="text-aelityx-gray dark:text-gray-300 mb-8">
+                    Cuéntanos sobre tu proyecto de investigación, colaboración académica o necesidad empresarial. 
+                    Nos pondremos en contacto contigo pronto.
+                  </p>
+                  
+                  <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 {/* Campo honeypot oculto para anti-spam */}
                 <input
                   type="text"
@@ -353,6 +362,52 @@ const ContactSection = () => {
                   )}
                 </Button>
               </form>
+                </>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+                  <div className="mb-6 animate-fade-in">
+                    <div className="relative w-24 h-24 mx-auto mb-6">
+                      <div className="absolute inset-0 bg-gradient-to-br from-aelityx-blue/20 to-aelityx-green/20 rounded-full blur-xl animate-pulse"></div>
+                      <img 
+                        src="/aelityx_blue.svg" 
+                        alt="Aelityx Logo" 
+                        className="relative w-24 h-24 dark:hidden animate-fade-in"
+                      />
+                      <img 
+                        src="/aelityx_white.svg" 
+                        alt="Aelityx Logo" 
+                        className="relative w-24 h-24 hidden dark:block animate-fade-in"
+                      />
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-3xl font-bold mb-4 text-aelityx-dark dark:text-white animate-fade-in" style={{ animationDelay: "0.2s" }}>
+                    ¡Gracias por contactarnos!
+                  </h3>
+                  
+                  <p className="text-lg text-aelityx-gray dark:text-gray-300 mb-2 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+                    Hemos recibido tu mensaje correctamente.
+                  </p>
+                  
+                  <p className="text-base text-aelityx-gray dark:text-gray-400 mb-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+                    Te responderemos lo antes posible. Será un privilegio trabajar contigo.
+                  </p>
+                  
+                  <div className="flex items-center gap-2 text-sm text-aelityx-gray dark:text-gray-400 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+                    <Clock className="h-4 w-4 text-aelityx-green" />
+                    <span>Respuesta en menos de 24 horas</span>
+                  </div>
+                  
+                  <Button
+                    onClick={() => setIsSubmitted(false)}
+                    variant="outline"
+                    className="mt-8 border-aelityx-blue text-aelityx-blue hover:bg-aelityx-blue hover:text-white dark:border-aelityx-blue/80 dark:text-aelityx-blue/80 dark:hover:bg-aelityx-blue/80 dark:hover:text-white transition-all duration-300 animate-fade-in"
+                    style={{ animationDelay: "0.6s" }}
+                  >
+                    Enviar otro mensaje
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>

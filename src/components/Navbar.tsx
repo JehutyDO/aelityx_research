@@ -2,12 +2,11 @@ import { useState, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
-  ["#inicio", "Inicio"],
-  ["#propuesta", "Propuesta"],
-  ["#servicios", "Servicios"],
-  ["#casos", "Casos de Éxito"],
-  ["#vision", "Visión"],
-  ["#contacto", "Contacto"],
+  ["#investigacion", "Líneas de I+D"],
+  ["#proyectos", "Proyectos"],
+  ["#publicaciones", "Publicaciones"],
+  ["#investigador", "Investigador"],
+  ["#contacto", "Colaborar"],
 ];
 
 const Navbar = () => {
@@ -90,7 +89,7 @@ const Navbar = () => {
                 className="h-8 md:h-10 w-auto transition-all"
             />
             <span className="hidden md:block text-2xl font-bold font-poppins text-aelityx-blue dark:text-white">
-            Aelityx
+            Aelityx Research
           </span>
           </a>
 

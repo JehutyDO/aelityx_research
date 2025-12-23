@@ -15,13 +15,13 @@ const ProposalSection = () => {
 
         <div className="relative z-10 container mx-auto">
           <div className="text-center">
-            <h2 className="section-title">Nuestra Esencia</h2>
+            <h2 className="section-title">Investigación que se Transforma en Soluciones</h2>
             <p className="text-3xl font-bold mb-6 text-aelityx-blue dark:text-aelityx-blue/90">
               "Los datos no solo informan: los datos iluminan."
             </p>
             <p className="section-subtitle">
-              En Aelityx creemos que el conocimiento nace de la observación crítica. Creamos soluciones con pensamiento estadístico,
-              herramientas digitales, e inteligencia emocional.
+              Investigación académica rigurosa que se transforma en soluciones empresariales aplicadas. 
+              Combinamos pensamiento estadístico, herramientas digitales e inteligencia aplicada a través de <strong className="text-aelityx-blue">Aelityx</strong>.
             </p>
           </div>
 
@@ -31,9 +31,10 @@ const ProposalSection = () => {
                 <div className="w-16 h-16 rounded-full bg-aelityx-blue/10 dark:bg-aelityx-blue/20 flex items-center justify-center mb-6 group-hover:bg-aelityx-blue/20 dark:group-hover:bg-aelityx-blue/30 transition-colors duration-300">
                   <Database className="w-8 h-8 text-aelityx-blue dark:text-aelityx-blue/90" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-aelityx-dark dark:text-white">Soluciones de Datos Inteligentes</h3>
+                <h3 className="text-2xl font-bold mb-4 text-aelityx-dark dark:text-white">Investigación Académica Rigurosa</h3>
                 <p className="text-aelityx-gray dark:text-gray-300 mb-6">
-                  Nuestras soluciones integran análisis avanzado, machine learning y visualización de datos para ofrecer insights accionables que impulsan la toma de decisiones y generan ventajas competitivas para tu organización.
+                  Más de 20 publicaciones científicas en revistas indexadas (JCR, Scopus, WoS). Investigación en ML, salud pública, 
+                  medio ambiente y análisis de datos con metodologías científicas validadas.
                 </p>
               </div>
               <div className="bg-gradient-to-r from-aelityx-blue to-aelityx-green h-1"></div>
@@ -44,9 +45,9 @@ const ProposalSection = () => {
                 <div className="w-16 h-16 rounded-full bg-aelityx-green/10 dark:bg-aelityx-green/20 flex items-center justify-center mb-6 group-hover:bg-aelityx-green/20 dark:group-hover:bg-aelityx-green/30 transition-colors duration-300">
                   <Lightbulb className="w-8 h-8 text-aelityx-green dark:text-aelityx-green/90" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-aelityx-dark dark:text-white">Evolución Tecnológica Continua</h3>
+                <h3 className="text-2xl font-bold mb-4 text-aelityx-dark dark:text-white">Aplicación Práctica con Aelityx</h3>
                 <p className="text-aelityx-gray dark:text-gray-300 mb-6">
-                  Combinamos la precisión de la ciencia con el diseño de experiencias tecnológicas para acompañar a tu empresa en el camino de la transformación digital con un enfoque personalizado y escalable.
+                  De la investigación surgen <strong className="text-aelityx-green">dashboards empresariales</strong>, <strong className="text-aelityx-green">modelos predictivos</strong> y <strong className="text-aelityx-green">sistemas de BI</strong> que transforman datos en decisiones estratégicas. Optimización operativa, arquitecturas de datos y soluciones de toma de decisiones que generan valor real para las organizaciones.
                 </p>
               </div>
               <div className="bg-gradient-to-r from-aelityx-green to-aelityx-blue h-1"></div>

@@ -2,20 +2,20 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProposalSection from "@/components/ProposalSection";
-import ServicesSection from "@/components/ServicesSection";
-import CasesSection from "@/components/CasesSection";
-import TeamSection from "@/components/TeamSection";
+import ResearchAreasSection from "@/components/ServicesSection";
+import ResearchProjectsSection from "@/components/CasesSection";
+import PublicationsSection from "@/components/PublicationsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import { useEffect } from "react";
-import CEOSection from "@/components/CEOSection.tsx";
+import ResearcherProfileSection from "@/components/CEOSection.tsx";
 
 const Index = () => {
   useEffect(() => {
     // Change the document title
-    document.title = "Aelityx | Transformando Datos en Conocimiento";
+    document.title = "Dr. Mauricio Rosales Rivera | Investigación en Ciencia de Datos | Aelityx Research";
   }, []);
 
   return (
@@ -28,15 +28,19 @@ const Index = () => {
       </AnimateOnScroll>
       
       <AnimateOnScroll>
-        <ServicesSection />
+        <ResearchAreasSection />
       </AnimateOnScroll>
       
       <AnimateOnScroll>
-        <CasesSection />
+        <ResearchProjectsSection />
       </AnimateOnScroll>
       
       <AnimateOnScroll>
-        <CEOSection />
+        <PublicationsSection />
+      </AnimateOnScroll>
+      
+      <AnimateOnScroll>
+        <ResearcherProfileSection />
       </AnimateOnScroll>
       
       <AnimateOnScroll>
